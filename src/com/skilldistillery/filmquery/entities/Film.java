@@ -1,5 +1,7 @@
 package com.skilldistillery.filmquery.entities;
 
+import java.util.List;
+
 public class Film {
 	private int id;
 	private String title;
@@ -12,10 +14,19 @@ public class Film {
 	private double replacement;
 	private String rating;
 	private String specialFeatures;
+	private List<Actor> actors;
 
+	// CONSTRUCTOR FOR FILMS BY KEYWORDS
+	public Film(String title, String description) {
+		super();
+		this.title = title;
+		this.description = description;
+	}
+
+	// CONSTRUCTOR WITH ACTORS
 	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacement, String rating, String specialFeatures) {
-
+			double rentalRate, int length, double replacement, String rating, String specialFeatures,
+			List<Actor> actors) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -28,10 +39,24 @@ public class Film {
 		this.replacement = replacement;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+		this.actors = actors;
 	}
-	
-	public void actor(int id, String firstName, String lastName) {
-		
+
+	// CONSTRUCTOR WITHOUT ACTORS
+	public Film(int id, String title, String description, int releaseYear, int languageId, int rentalDuration,
+			double rentalRate, int length, double replacement, String rating, String specialFeatures) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.languageId = languageId;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacement = replacement;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
 	}
 
 	public int getId() {
@@ -124,10 +149,24 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-				+ ", length=" + length + ", replacement=" + replacement + ", rating=" + rating + ", specialFeatures="
-				+ specialFeatures + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("FILM TITLE: ");
+		builder.append(title);
+		builder.append(", DESCRIPTION: ");
+		builder.append(description);
+		builder.append(", RELEASE YEAR: ");
+		builder.append(releaseYear);
+		builder.append(", RATING: ");
+		builder.append(rating);
+		return builder.toString();
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
+//				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
+//				+ ", length=" + length + ", replacement=" + replacement + ", rating=" + rating + ", specialFeatures="
+//				+ specialFeatures + "]";
+//	}
 
 }
