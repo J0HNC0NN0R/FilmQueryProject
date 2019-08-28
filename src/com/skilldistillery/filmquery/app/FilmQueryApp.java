@@ -47,77 +47,53 @@ public class FilmQueryApp {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void startUserInterface(Scanner input) {
-		System.out.println("FILM QUERY PRO APPLICATION\n");
-		System.out.println("Enter \"1\" to look up a movie by its ID#");
-		System.out.println("Enter \"2\" to look up movie by a keyword");
-		System.out.println("Enter \"3\" to exit the application.");
 
-		try {
-			String choice = input.next();
-			switch (choice) {
-			case "1":
-				System.out.println("Please enter a movie's ID# to look it up: ");
-				int movieChoice = input.nextInt();
-				if (movieChoice < 1 || movieChoice > 1000) {
-					System.out.println("That movie is not in the collection...");
-				} else {
-					System.out.println(db.findFilmById(movieChoice));
+		String choice = "";
+		while (choice != "3") {
+			try {
+				System.out.println();
+				System.out.println("FILM QUERY PRO APPLICATION\n");
+				System.out.println("Enter \"1\" to look up a movie by its ID#");
+				System.out.println("Enter \"2\" to look up movie by a keyword");
+				System.out.println("Enter \"3\" to exit the application.");
+				choice = input.next();
+				switch (choice) {
+				case "1":
+					System.out.println("Please enter a movie's ID# to look it up: ");
+					int movieChoice = input.nextInt();
+					if (db.findFilmById(movieChoice) != null) {
+						System.out.println(db.findFilmById(movieChoice));
+					} else {
+
+						System.out.println("That movie is not in the collection...");
+					}
+					break;
+
+				case "2":
+					System.out.print("Please enter a keyword to look up a movie: ");
+					String keyWord = input.next();
+					List<Film> listOfFilms = db.findFilmByKeyWord(keyWord);
+
+					for (Film film : listOfFilms) {
+						System.out.println(film);
+
+					}
+					break;
+
+				case "3":
+					System.out.println("Exiting application");
+					System.exit(0);
+					break;
+
+				default:
+					System.out.println("Please select a number between 1 and 3");
 
 				}
-				break;
 
-			case "2":
-				System.out.print("Please enter a keyword to look up a movie: ");
-				String keyWord = input.next();
-				List<Film> listOfFilms = db.findFilmByKeyWord(keyWord);
-
-				for (Film film : listOfFilms) {
-					System.out.println(film);
-
-				}
-				break;
-
-			case "3":
-				System.out.println("Exiting application");
-				System.exit(0);
-				break;
-
+			} catch (Exception e) {
+				System.out.println("Invalid option.");
 			}
-
-			if (choice != "3") {
-				input.nextLine();
-				//again(input);
-				startUserInterface(input);
-			}
-
-		} catch (Exception e) {
-			System.out.println("Invalid option.");
-			startUserInterface(input);
 		}
-
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	public void again(Scanner input) {
-		System.out.println();
-		System.out.println("Would you like to use the Film Query Application Again? (Y/N)");
-
-		String choice = input.next().toUpperCase();
-		switch (choice) {
-		case "Y":
-			startUserInterface(input);
-			break;
-
-		case "N":
-			System.out.println("Exiting application");
-			break;
-
-		default:
-			System.out.println("Please enter either \"Y\" or \"N");
-			again(input);
-
-		}
-
-	}
 }
